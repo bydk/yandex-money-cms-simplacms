@@ -45,11 +45,11 @@ class YandexMoney extends Simpla
             unset($purshase);
 
             $disc = number_format($price/$sum, 2, '.', '');
-
+            mb_internal_encoding("UTF-8");
             foreach ($purchases as $purchase) {
                 $receipt['items'][] = array(
                     'quantity' => $purchase->amount,
-                    'text' => substr($purchase->product_name, 0, 128),
+                    'text' => mb_substr($purchase->product_name, 0, 128),
                     'tax' => $id_tax,
                     'price' => array(
                         'amount' => number_format($purchase->price * ($disc), 2, '.', ''),
@@ -63,7 +63,7 @@ class YandexMoney extends Simpla
 
                 $receipt['items'][] = array(
                     'quantity' => 1,
-                    'text' => substr($delivery->name, 0, 128),
+                    'text' => mb_substr($delivery->name, 0, 128),
                     'tax' => $id_tax,
                     'price' => array(
                         'amount' => number_format($order->delivery_price * ($disc), 2, '.', ''),
